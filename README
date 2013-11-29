@@ -1,10 +1,10 @@
 --------------------
 general
 --------------------
-- the software is provided 'as is' without any guarrantees
-- currently all libraries are contained in headre files. 
-  the header files can be picked up through symbolic links in the 'include' directory
-  the header files can be copied and used outside the directory structure decsribed below
+- the software is provided 'as is' without any guarantees
+- currently all libraries are contained in header files. 
+  the header files can be picked up from the include directory after running 'make'
+  or directly from the libs/xxx/include directories
 - test programs are located under 'src/apps' and are useful for testing the utilities
 
 --------------------
