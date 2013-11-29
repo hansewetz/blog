@@ -1,0 +1,55 @@
+--------------------
+general
+--------------------
+- the software is provided 'as is' without any guarrantees
+- currently all libraries are contained in headre files. 
+  the header files can be picked up through symbolic links in the 'include' directory
+  the header files can be copied and used outside the directory structure decsribed below
+- test programs are located under 'src/apps' and are useful for testing the utilities
+
+--------------------
+content
+--------------------
+- 'type-utils': a type utilities header file dealing mostly with index lists and tuples
+- 'occi-tools': a utility header file making Oracle OCCI access simple
+
+--------------------
+building
+--------------------
+(1) possibly modify setenv.ksh
+(2) source setenv.ksh
+(3) make TARGET=clean
+(3) make
+
+--------------------
+directory structure:
+--------------------
+.
+  Makefile                   -- 'make' builds all, 'make TARGET=clean' cleans all
+  setenv.sh                  -- source to setup environment
+   makerules 
+     build.rules             -- rules for building executables or libraries
+     subdirs.rules           -- rules for traversing directories
+  bin                        -- binary apps
+  lib                        -- compiled libraries
+  include                    -- header files are copied here when running 'make'
+  src
+    apps                     -- test applications
+      test1-occi-tools       -- directory cotaining a test app for occi
+      test1-type-utils       -- directory cotaining a test app for tuples, index lists etc.
+    libs
+      occi-tools
+        src                  -- empty
+        include              -- header files for occi utilities
+      type-utils
+        src                  -- empty
+        include              -- header files for type utilities
+
+--------------------
+TODO
+--------------------
+- add support for more types in occi tools
+- change occi input iterator to use boost function input iterator
+- add better utilities to type-utoils for tuples.
+  currently many functions requires am indlist when in fgact most of the time we only need the 'standard'
+  indlist created by 'make_indlist_from_tuple<TU>::type'

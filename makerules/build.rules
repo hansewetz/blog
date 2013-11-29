@@ -1,0 +1,78 @@
+# =======================================================================
+# A very simple mini build system which can be improved upon.
+# (not bad that it is simple though!)
+# See comments in this file what should be improved on.
+# =======================================================================
+
+# Targets
+.SUFFIXES:
+.SUFFIXES: .so .o
+
+.PHONY: all bin lib obj clean
+.SILENT: all bin lib obj clean
+
+# =======================================================================
+# NOTE!
+# Here we should setup options based on a flag set in the Makefile so
+# we automatically add options when user sets a flag.
+# For example, if useOracle is set, then we should add
+# -I, -L and -l options needed to link/compile against Oracle OCCI.
+# Right now it's patched together so we always use all options.
+# =======================================================================
+
+# Add some default so users don't have to add them to LOCAL_XXX vars.
+LOCAL_LIBS      += -lrt
+LOCAL_LIBPATH   += -L$(INSTALL_HOME)/lib -L$(INSTALL_EXTRA_HOME)/lib
+LOCAL_INCPATH   += -I. -I$(INSTALL_HOME)/include -I$(INSTALL_EXTRA_HOME)/include
+LOCAL_DEFINES   +=
+LOCAL_CXXFLAGS  +=
+LOCAL_CPPFLAGS  +=
+LOCAL_LDFLAGS   +=
+LOCAL_LDSOFLAGS +=
+
+# Setup compile/link environment - these are the variables used in the final build.
+# NOTE! Here we should pick stuff based on useXXX flags set in user Makefile.
+#NOTE! When linking with occi - LIBS=-locci -lclntsh -lociei -lnnz11 $(LOCAL_LIBS) -lboost_system -lboost_filesystem
+LIBS=$(LOCAL_LIBS)
+LIBPATH=-L${BOOST_LIB} $(LOCAL_LIBPATH)
+INCPATH=-I${BOOST_INC} $(LOCAL_INCPATH)
+
+DEFINES=$(LOCAL_DEFINES)
+CXXFLAGS=$(LOCAL_CXXFLAGS)
+#CCFLAGS=-c -m64 -fPIC -pedantic -std=c++11 $(LOCAL_CPPFLAGS) # NOTE!
+CCFLAGS=-c -m64 -fPIC -pedantic -std=c++0x $(LOCAL_CPPFLAGS)
+LDFLAGS=-m64 $(LOCAL_LDFLAGS)
+LDSOFLAGS=-shared -fPIC -m64 $(LOCAL_LDSOFLAGS)
+
+# Setup compiler/linker.
+CC=g++
+LD=g++
+LDSO=g++
+
+# Set objects to compile.
+OBJS=$(LOCAL_OBJS)
+
+# Targets.
+all: bin
+
+bin: lib $(LOCAL_TARGET)
+
+lib: obj $(LOCAL_SOTARGET)
+
+obj: $(OBJS)
+
+clean:
+	rm -f $(OBJS) $(LOCAL_SOTARGET) $(LOCAL_TARGET) junk*
+
+# Compilation rules
+%.o: %.cc
+	@echo "### Building $@"
+	$(CC) $(CXXFLAGS) $(CCFLAGS) $(INCPATH) $(DEFINES) -o $@ $<
+
+$(LOCAL_TARGET): $(OBJS)
+	@echo "### Building $@"
+	$(LD) -o $@ $(OBJS) $(CXXFLAGS) $(LDFLAGS) $(LIBPATH) $(LIBS)
+
+$(LOCAL_SOTARGET): $(OBJS)
+	@echo "### Building $@"
+	$(LDSO) $(CXXFLAGS) $(LDSOFLAGS) -o $@ $(OBJS)
