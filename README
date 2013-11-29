@@ -1,3 +1,7 @@
+================================================================================================
+- the software in this repository is a dump of code from my IT blog at: 'hansewetz.blogspot.com'
+================================================================================================
+
 --------------------
 general
 --------------------
@@ -48,6 +52,7 @@ directory structure:
 --------------------
 TODO
 --------------------
+- add code from earlier blog entries
 - add support for more types in occi tools
 - change occi input iterator to use boost function input iterator
 - add better utilities to type-utoils for tuples.
