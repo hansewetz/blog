@@ -53,13 +53,13 @@ public:
     auto futs=submitTasksReturnFuts(std::forward<decltype(ftu)>(std::move(ftu)));
     RET*dummy=nullptr;
     return waitForFutures(dummy,std::move(futs));
-  };
+  }
   // submit list of tasks and return a tuple containing results of tasks
   template<typename...F,typename RET=std::tuple<typename fret_type<F>::type...>>
   RET submitTasksAndWait(F...f){
     std::tuple<F...>ftu{std::move(f)...};
     return submitTaskTupleAndWait(std::move(ftu));
-  };
+  }
 private:
   // submit tasks and return futures in a tuple
   template<typename F,typename...G,typename RET=std::tuple<std::future<typename std::result_of<F()>::type>,std::future<typename std::result_of<G()>::type>...>>
