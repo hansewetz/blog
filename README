@@ -1,3 +1,6 @@
+// Copyright (c) 2003-2015 Hans Ewetz (hansewetz at hotmail dot com)
+// Distributed under the Boost Software License, Version 1.0. 
+
 ================================================================================================
 - the software in this repository is a dump of code from my IT blog at: 'hansewetz.blogspot.com'
 ================================================================================================
@@ -9,13 +12,15 @@ general
 - currently all libraries are contained in header files. 
   the header files can be picked up from the include directory after running 'make'
   or directly from the libs/xxx/include directories
-- test programs are located under 'src/apps' and are useful for testing the utilities
+- test programs are located under 'src/tests' and are useful for testing the utilities
 
 --------------------
 content
 --------------------
+- 'general-tools': contains a stop watch class using boost::chrono
 - 'type-utils': a type utilities header file dealing mostly with index lists and tuples
 - 'occi-tools': a utility header file making Oracle OCCI access simple
+- 'boost-asio-queue-extension': a queue extension to boost::asio
 
 --------------------
 building
@@ -38,16 +43,17 @@ directory structure:
   lib                        -- compiled libraries
   include                    -- header files are copied here when running 'make'
   src
-    apps                     -- test applications
-      test1-occi-tools       -- directory cotaining a test app for occi
-      test1-type-utils       -- directory cotaining a test app for tuples, index lists etc.
+    apps                                 -- test applications
+      test1-occi-tools                   -- directory cotaining a test app for occi
+      test1-type-utils                   -- directory cotaining a test app for tuples, index lists etc.
+      test-boost-asio-qextensions        -- test programs for boost asio queue extension
     libs
       occi-tools
-        src                  -- empty
         include              -- header files for occi utilities
       type-utils
-        src                  -- empty
         include              -- header files for type utilities
+      boost-asio-queue-extension
+        include              -- header files for boost::asio queue extension utilities
 
 --------------------
 TODO
@@ -55,6 +61,7 @@ TODO
 - add code from earlier blog entries
 - add support for more types in occi tools
 - change occi input iterator to use boost function input iterator
-- add better utilities to type-utoils for tuples.
+- add better utilities to type-utils for tuples.
   currently many functions requires am indlist when in fgact most of the time we only need the 'standard'
   indlist created by 'make_indlist_from_tuple<TU>::type'
+- organise test programs for boost::asio queue extension better

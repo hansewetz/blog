@@ -1,3 +1,6 @@
+// Copyright (c) 2003-2015 Hans Ewetz (hansewetz at hotmail dot com)
+// Distributed under the Boost Software License, Version 1.0. 
+
 #ifndef __OCCI_OUTPUT_H__ 
 #define __OCCI_OUTPUT_H__ 
 #include "occi_utils.h"
@@ -108,29 +111,29 @@ public:
 
   // ctor taking authentication (commit default == true since sink manages resources)
   explicit occi_sink(occi_auth const&auth,std::string const&sql,std::size_t batchsize=1,Size const&size=Size(),commit_t commit=Commit):
-      conn_(nullptr),connpool_(nullptr),env_(nullptr),auth_(auth),sql(sql),closeConn_(true),
-      releaseConn_(false),terminateEnv_(true),batchsize_(batchsize),size_(size),commit_(commit){
+      conn_(nullptr),connpool_(nullptr),env_(nullptr),auth_(auth),sql(sql),
+      batchsize_(batchsize),size_(size),closeConn_(true), releaseConn_(false),terminateEnv_(true),commit_(commit){
     check_batchsize(batchsize_);
     env_=oracle::occi::Environment::createEnvironment(oracle::occi::Environment::DEFAULT);
     conn_=env_->createConnection(std::get<0>(auth_),std::get<1>(auth_),std::get<2>(auth_));
   } 
   // ctor taking environment + authentication (commit default == true since sink manages resources)
   explicit occi_sink(oracle::occi::Environment*env,occi_auth const&auth,std::string const&sql,std::size_t batchsize=1,Size const&size=Size(),commit_t commit=Commit):
-      conn_(nullptr),connpool_(nullptr),env_(env),auth_(auth),sql(sql),closeConn_(true),
-      releaseConn_(false),terminateEnv_(false),batchsize_(batchsize),size_(size),commit_(commit){
+      conn_(nullptr),connpool_(nullptr),env_(env),auth_(auth),sql(sql),
+      batchsize_(batchsize),size_(size),closeConn_(true),releaseConn_(false),terminateEnv_(false),commit_(commit){
     check_batchsize(batchsize_);
     conn_=env_->createConnection(std::get<0>(auth_),std::get<1>(auth_),std::get<2>(auth_));
   } 
   // ctor taking an open connection (commit default == false since sink does not manage resources)
   explicit occi_sink(oracle::occi::Connection*conn,std::string const&sql,std::size_t batchsize=1,Size const&size=Size(),commit_t commit=Nop):
-      conn_(conn),connpool_(nullptr),env_(nullptr),sql(sql),closeConn_(false),
-      releaseConn_(false),terminateEnv_(false),batchsize_(batchsize),size_(size),commit_(commit){
+      conn_(conn),connpool_(nullptr),env_(nullptr),sql(sql),
+      batchsize_(batchsize),size_(size),closeConn_(false),releaseConn_(false),terminateEnv_(false),commit_(commit){
     check_batchsize(batchsize_);
   }
   // ctor taking a stateless connection pool (commit default == false since sink does not manage resources)
   explicit occi_sink(oracle::occi::StatelessConnectionPool*connpool,std::string const&sql,std::size_t batchsize=1,Size const&size=Size(),commit_t commit=Nop):
-      conn_(nullptr),connpool_(connpool),env_(nullptr),sql(sql),closeConn_(false),
-      releaseConn_(true),terminateEnv_(false),batchsize_(batchsize),size_(size),commit_(commit){
+      conn_(nullptr),connpool_(connpool),env_(nullptr),sql(sql),
+      batchsize_(batchsize),size_(size),closeConn_(false),releaseConn_(true),terminateEnv_(false),commit_(commit){
     check_batchsize(batchsize_);
     conn_=connpool_->getConnection();
   }

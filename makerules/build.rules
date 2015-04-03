@@ -1,3 +1,6 @@
+# Copyright (c) 2003-2015 Hans Ewetz (hansewetz at hotmail dot com)
+# Distributed under the Boost Software License, Version 1.0. 
+
 # =======================================================================
 # A very simple mini build system which can be improved upon.
 # (not bad that it is simple though!)
@@ -40,7 +43,7 @@ INCPATH=-I${BOOST_INC} $(LOCAL_INCPATH)
 DEFINES=$(LOCAL_DEFINES)
 CXXFLAGS=$(LOCAL_CXXFLAGS)
 #CCFLAGS=-c -m64 -fPIC -pedantic -std=c++11 $(LOCAL_CPPFLAGS) # NOTE!
-CCFLAGS=-c -m64 -fPIC -pedantic -std=c++0x $(LOCAL_CPPFLAGS)
+CCFLAGS=-c -m64 -fPIC -Wall -pedantic -std=c++14 -Werror $(LOCAL_CPPFLAGS)
 LDFLAGS=-m64 $(LOCAL_LDFLAGS)
 LDSOFLAGS=-shared -fPIC -m64 $(LOCAL_LDSOFLAGS)
 

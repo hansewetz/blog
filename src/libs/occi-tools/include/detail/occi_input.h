@@ -1,3 +1,6 @@
+// Copyright (c) 2003-2015 Hans Ewetz (hansewetz at hotmail dot com)
+// Distributed under the Boost Software License, Version 1.0. 
+
 #ifndef __OCCI_INPUT_H__
 #define __OCCI_INPUT_H__
 #include "occi_utils.h"
@@ -17,7 +20,7 @@ friend class boost::iterator_core_access;
 public:
   // ctor, assign,dtor
   explicit occi_input_iterator(oracle::occi::Connection*conn,std::string const&sql,std::size_t prefetchcount=0,Bind const&bind=Bind{}):
-      conn_(conn),sql_(sql),bind_(bind),fetcher_(),stmt_(nullptr),end_(false),prefetchcount_(prefetchcount){
+      sql_(sql),bind_(bind),conn_(conn),stmt_(nullptr),fetcher_(),currentRow_(),end_(false),prefetchcount_(prefetchcount){
     // create row fetcher and fetch first row
     stmt_=std::shared_ptr<oracle::occi::Statement>{conn_->createStatement(),occi_stmt_deleter(conn_)};
     stmt_->setSQL(sql_);
@@ -28,7 +31,7 @@ public:
     fetcher_=occi_data_fetcher(rs);
     nextrow();
   }
-  occi_input_iterator():end_(true),bind_(Bind{}){}
+  occi_input_iterator():bind_(Bind{}),end_(false){}
   occi_input_iterator(occi_input_iterator const&)=default;
   occi_input_iterator(occi_input_iterator&&)=default;
   occi_input_iterator&operator=(occi_input_iterator const&)=default;

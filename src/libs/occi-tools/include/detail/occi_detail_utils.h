@@ -1,3 +1,6 @@
+// Copyright (c) 2003-2015 Hans Ewetz (hansewetz at hotmail dot com)
+// Distributed under the Boost Software License, Version 1.0. 
+
 #ifndef __OCCI_DETAIL_UTILS_H__
 #define __OCCI_DETAIL_UTILS_H__
 #include "type-utils/type_utils.h"
