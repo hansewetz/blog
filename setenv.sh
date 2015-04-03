@@ -19,3 +19,11 @@ export ORACLE_HOME=/ec/sw/oracle/client/product/11.2.0.2/
 # set path and ld library path
 export PATH=${PATH}:${ENV_ROOT}/bin
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${ENV_ROOT}/lib
+
+# a real hack since git(hub) views symbolic links as normal files
+cd include
+rm -f type-util occi-tools general-tools
+ln -s ../src/libs/type-utils/include/ type-utils
+ln -s ../src/libs/occi-tools/include/ occi-tools
+ln -s ../src/libs/general-tools/include/ general-tools
+cd ..
