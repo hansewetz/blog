@@ -22,7 +22,7 @@ export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${ENV_ROOT}/lib
 
 # a real hack since git(hub) views symbolic links as normal files
 cd include
-rm -f type-util occi-tools general-tools
+rm -f type-utils occi-tools general-tools
 ln -s ../src/libs/type-utils/include/ type-utils
 ln -s ../src/libs/occi-tools/include/ occi-tools
 ln -s ../src/libs/general-tools/include/ general-tools
