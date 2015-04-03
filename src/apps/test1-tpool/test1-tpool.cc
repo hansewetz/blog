@@ -3,7 +3,7 @@
 #include <iostream>
 
 using namespace std;
-using namespace tutils;
+using namespace utils;
 
 struct Foo{
   Foo(){cout<<"ctor"<<endl;}

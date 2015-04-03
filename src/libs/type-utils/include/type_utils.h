@@ -5,7 +5,7 @@
 #include <type_traits>
 #include <string>
 #include <cxxabi.h>
-namespace tutils{
+namespace utils{
 
 // -----------------------------------------------------------------------------
 // forward decl.

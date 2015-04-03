@@ -3,7 +3,7 @@
 #include <occiData.h>
 #include <string>
 #include <tuple>
-namespace tutils{
+namespace occi_utils{
 
 // typedef for authentication data
 typedef std::tuple<std::string,std::string,std::string>occi_auth;

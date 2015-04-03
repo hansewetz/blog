@@ -8,10 +8,10 @@
 #include <memory>
 #include <tuple>
 #include <stdexcept>
-namespace tutils{
+namespace occi_utils{
 
 // input iterator
-template<typename Row,typename Bind=std::tuple<>,typename ILBind=typename make_indlist_from_tuple<Bind>::type>
+template<typename Row,typename Bind=std::tuple<>,typename ILBind=typename utils::make_indlist_from_tuple<Bind>::type>
 class occi_input_iterator:public boost::iterator_facade<occi_input_iterator<Row,Bind>,Row const,boost::single_pass_traversal_tag>{
 friend class boost::iterator_core_access;
 public:
@@ -23,7 +23,7 @@ public:
     stmt_->setSQL(sql_);
     if(prefetchcount_>0)stmt_->setPrefetchRowCount(prefetchcount_);
     occi_data_binder binder(stmt_);
-    apply_ind_tuple_ntimes_with_indlist(ILBind(),binder,bind_);
+    utils::apply_ind_tuple_ntimes_with_indlist(ILBind(),binder,bind_);
     std::shared_ptr<oracle::occi::ResultSet>rs(stmt_->executeQuery(),occi_rs_deleter(stmt_.get()));
     fetcher_=occi_data_fetcher(rs);
     nextrow();
@@ -49,8 +49,8 @@ private:
   // get next row
   void nextrow(){
     if(end_)throw std::runtime_error("occi_input_iterator<>: attempt to step past end iterator");
-    using IL=typename make_indlist_from_tuple<decltype(currentRow_)>::type;
-    if(fetcher_.getResultSet()->next())apply_ind_tuple_ntimes_with_indlist(IL(),fetcher_,currentRow_);
+    using IL=typename utils::make_indlist_from_tuple<decltype(currentRow_)>::type;
+    if(fetcher_.getResultSet()->next())utils::apply_ind_tuple_ntimes_with_indlist(IL(),fetcher_,currentRow_);
     else end_=true;
   }
   // state

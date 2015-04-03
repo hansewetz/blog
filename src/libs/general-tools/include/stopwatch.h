@@ -1,6 +1,6 @@
 #include <boost/chrono.hpp>
 #include <boost/ratio.hpp>
-namespace tutils{
+namespace utils{
 
 #ifdef BOOST_CHRONO_HAS_PROCESS_CLOCKS 
 #include <boost/chrono/process_cpu_clocks.hpp> 

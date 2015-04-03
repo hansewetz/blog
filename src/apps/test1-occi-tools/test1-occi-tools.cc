@@ -6,7 +6,8 @@
 #include <stdexcept>
 #include <algorithm>
 using namespace std;
-using namespace tutils;
+using namespace utils;
+using namespace occi_utils;
 using namespace oracle::occi;
 
 // --- test insert

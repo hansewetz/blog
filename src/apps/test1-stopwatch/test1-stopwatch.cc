@@ -2,7 +2,7 @@
 #include <iostream>
 #include <thread>
 using namespace std;
-using namespace tutils;
+using namespace utils;
 
 #include <sys/times.h>
 

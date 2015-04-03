@@ -12,7 +12,7 @@
 #include <chrono>
 #include <type_traits>
 
-namespace tutils{
+namespace utils{
 
 // ------------------- tpool --------------
 class tpool{
@@ -65,7 +65,7 @@ private:
   template<typename F,typename...G,typename RET=std::tuple<std::future<typename std::result_of<F()>::type>,std::future<typename std::result_of<G()>::type>...>>
   RET submitTasksReturnFuts(std::tuple<F,G...>ftu){
     auto tu1=make_tuple(std::move(submit(std::get<0>(ftu))));
-    auto tu2=submitTasksReturnFuts(tutils::popn_front_tuple<1>(ftu));
+    auto tu2=submitTasksReturnFuts(utils::popn_front_tuple<1>(ftu));
     return std::tuple_cat(std::move(tu1),std::move(tu2));
   }
   template<typename F,typename FUTS=std::tuple<std::future<typename std::result_of<F()>::type>>>
@@ -78,7 +78,7 @@ private:
     // use references to futures
     auto&fu1=std::get<0>(futs);
     auto r1=std::make_tuple(get_fut(static_cast<R1*>(nullptr),fu1));
-    auto t2=tutils::popn_front_tuple<1>(futs);
+    auto t2=utils::popn_front_tuple<1>(futs);
     std::tuple<R2...>*dummy;
     auto r2=waitForFutures(dummy,std::move(t2));
     return std::tuple_cat(std::move(r1),std::move(r2));

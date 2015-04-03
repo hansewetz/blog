@@ -10,7 +10,7 @@
 #include <stdexcept>
 #include <type_traits>
 
-namespace tutils{
+namespace occi_utils{
 // forward decl
 template<typename Bind>class occi_output_iterator;
 
@@ -35,7 +35,7 @@ class occi_output_iterator:public boost::function_output_iterator<occi_unary_out
 friend class occi_unary_output<Bind>;
 public:
   // typedef for simpler declarations (tuple<int,int,...> with as many elements a Bind)
-  using Size=typename uniform_tuple_builder<std::tuple_size<Bind>::value,std::size_t>::type;
+  using Size=typename utils::uniform_tuple_builder<std::tuple_size<Bind>::value,std::size_t>::type;
 
   // ctors, assign, dtor
   occi_output_iterator(oracle::occi::Connection*conn,std::string const&sql,std::size_t batchsize=1,Size const&size=Size()):
@@ -53,7 +53,7 @@ public:
     if(batchsize>1){
       // set size for variable size bind variables (will throw exception if size==0 for variable size bind variable)
       occi_bind_sizer<Bind>sizer{stmt_};
-      apply_with_index_template(sizer,size);
+      utils::apply_with_index_template(sizer,size);
     }
     // create binder object
     binder_=occi_data_binder(stmt_);
@@ -72,8 +72,8 @@ private:
     // check if weed to add previous row, bind new row and check if we need to flush (execute)
     ++nwaiting_;
     if(nwaiting_>1)stmt_->addIteration();
-    using ILBind=typename make_indlist_from_tuple<Bind>::type;
-    apply_ind_tuple_ntimes_with_indlist(ILBind(),binder_,bind);
+    using ILBind=typename utils::make_indlist_from_tuple<Bind>::type;
+    utils::apply_ind_tuple_ntimes_with_indlist(ILBind(),binder_,bind);
     if(nwaiting_==batchsize_)flushAux();
   }
   // flush remaining statements
@@ -96,7 +96,7 @@ template<typename Bind=std::tuple<>>
 class occi_sink{
 public:
   // typedef for simpler declarations (tuple<int,int,...> with as many elements a Bind)
-  using Size=typename uniform_tuple_builder<std::tuple_size<Bind>::value,std::size_t>::type;
+  using Size=typename utils::uniform_tuple_builder<std::tuple_size<Bind>::value,std::size_t>::type;
 
   // enum for controlling commit, rollback or do nothing
   enum commit_t:int{Rollback=0,Commit=1,Nop=2};

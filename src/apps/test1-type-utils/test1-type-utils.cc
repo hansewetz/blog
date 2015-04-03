@@ -4,7 +4,7 @@
 #include <sstream>
 #include <functional>
 using namespace std;
-using namespace tutils;
+using namespace utils;
 
 // concatenate arguments into a string
 struct Concatenate2{
