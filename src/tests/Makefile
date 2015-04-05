@@ -3,5 +3,5 @@
 
 SUBDIRS = test1-type-utils test1-occi-tools test1-tpool test1-stopwatch test-boost-asio-qextensions
 
-include $(ENV_ROOT)/makerules/subdirs.rules
+include $(PROJECT_ROOT)/makerules/subdirs.rules
 

@@ -3,5 +3,5 @@
 
 SUBDIRS = type-utils occi-tools general-tools boost-asio-queue-extension
 
-include $(ENV_ROOT)/makerules/subdirs.rules
+include $(PROJECT_ROOT)/makerules/subdirs.rules
 

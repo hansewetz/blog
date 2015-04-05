@@ -3,5 +3,5 @@
 
 SUBDIRS = src
 
-include $(ENV_ROOT)/makerules/subdirs.rules
+include $(PROJECT_ROOT)/makerules/subdirs.rules
 

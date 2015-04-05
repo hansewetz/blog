@@ -7,14 +7,14 @@ LOCAL_SOTARGET  =
 LOCAL_OBJS      = test1-stopwatch.o
 
 # Control.
-LOCAL_LIBS      = -lboost_chrono
+LOCAL_LIBS      = -lboost_chrono -lboost_system
 LOCAL_LIBPATH   = 
-LOCAL_INCPATH   =-I$(ENV_ROOT)/include  -L${BOOST_LIB} -I${BOOST_INC} 
+LOCAL_INCPATH   =-I$(PROJECT_ROOT)/include  -L${BOOST_LIB} -I${BOOST_INC} 
 LOCAL_DEFINES   = 
 LOCAL_CXXFLAGS  =
 LOCAL_CPPFLAGS  =
 LOCAL_LDFLAGS   =
 LOCAL_LDSOFLAGS =
 
-include $(ENV_ROOT)/makerules/build.rules
+include $(PROJECT_ROOT)/makerules/build.rules
 
