@@ -19,3 +19,4 @@ src/tests/test1-occi-tools/test1-occi-tools
 src/tests/test1-stopwatch/test1-stopwatch
 src/tests/test1-tpool/test1-tpool
 src/tests/test1-type-utils/test1-type-utils
+src/tests/test-boost-asio-qextensions/echo-server/echo-test
