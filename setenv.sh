@@ -2,7 +2,7 @@
 # Distributed under the Boost Software License, Version 1.0. 
 
 # setup installation directories for includes and libs
-export INSTALL_HOME=/home/hans/installs
+export INSTALL_HOME=/ec/dgt/shared/exodus/local/CppEnv-V1.0/
 
 # set project root
 export PROJECT_ROOT=`pwd`
